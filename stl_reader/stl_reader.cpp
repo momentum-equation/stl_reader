@@ -16,6 +16,12 @@
 #include "VertexBufferLayout.h"
 #include "Shader.h"
 
+int main() {
+	TesselationData Cube;
+	Cube = parse_stl("Ender3-Zmotormount.stl");
+	return 0;
+}
+
 //struct ShaderProgramSource
 //{
 //    std::string VertexSource;
@@ -209,23 +215,3 @@
 //    glfwTerminate();
 //    return 0;
 //}
-
-int main(){
-	TesselationData Cube;
-	Cube = parse_stl("Ender3-Zmotormount.stl");
-	return 0;
-}
-
-//glBegin(GL_TRIANGLES);
-        //glVertex2f(-0.5f, -0.5f);
-        //glVertex3f(0, 0, 0);
-        //glVertex3f(1, 1, 1);
-        //glVertex3f(1, 0, 1);
-        //glVertex3f(1, 1, 0);
-        //glVertex3f(0, 1, 1);
-        //glVertex3f(1, 0, 0);
-        //glVertex3f(0, 1, 0);
-        //glVertex3f(0, 0, 1);
-        //glVertex2f(0.0f, 0.5f);
-        //glVertex2f(0.5f, -0.5f);
-        //glVertex2f(-0.5f, -0.5f);

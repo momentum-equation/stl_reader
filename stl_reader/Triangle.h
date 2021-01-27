@@ -53,11 +53,17 @@ public:
 		return *this;
 	}
 
-	// Triangles sharing vertices but having opposite normals 
-	// are considered as equal
 	bool operator== (const Triangle& Other) const {
+		// all vertices should be equal
+		// normals should have angle greater than some
+		// threshold
+
+		bool degenerate_case{ false };
+		if (get_normal().dot(Other.normal_) <= 1e-8) {
+			degenerate_case = true;
+		}
 		return (v1_ == Other.v1_ && v2_ == Other.v2_
-			&& v3_ == Other.v3_);
+			&& v3_ == Other.v3_ && degenerate_case);
 	}
 
 	bool operator!= (const Triangle& Other) const {
