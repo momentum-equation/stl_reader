@@ -1,5 +1,6 @@
 #pragma once
 #include <utility>
+#include <math.h>
 
 class Vertex{
 private:
@@ -38,6 +39,15 @@ public:
 		return *this;
 	}
 
+	Vertex operator- (const Vertex& Other) {
+		Vertex V;
+		V.x_ = x_ - Other.x_;
+		V.y_ = y_ - Other.y_;
+		V.z_ = z_ - Other.z_;
+
+		return V;
+	}
+
 	bool operator== (const Vertex& P) {
 		return (x_ == P.x_ && y_ == P.y_ && z_ == P.z_);
 	}
@@ -46,6 +56,9 @@ public:
 		return (x_ == P.x_ && y_ == P.y_ && z_ == P.z_);
 	}
 
+	float magnitude() const {
+		return std::sqrt(x_ * x_ + y_ * y_ + z_ * z_);
+	}
 
 	bool operator!= (const Vertex& P) {
 		return !(*this == P);
@@ -55,7 +68,8 @@ public:
 		return !(*this == P);
 	}
 
-	float dot(const Vertex& Other){
-		return (x_ * Other.x_ + y_ * Other.y_ + z_ * Other.z_);
+	float cos_angle(const Vertex& Other){
+		return (x_ * Other.x_ + y_ * Other.y_ + z_ * Other.z_)
+			/((this->magnitude())*(Other.magnitude()));
 	}
 };

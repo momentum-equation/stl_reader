@@ -10,13 +10,11 @@
 #include "Vertex.h"
 #include "Triangle.h"
 
-
 class TesselationData{
 private:
-	//std::unordered_map<Vertex, Vertex> hash_table;
-
 	std::string path;
-	std::set<Triangle> data;
+	std::vector<Triangle> data;
+
 
 public:
 	TesselationData ()
@@ -46,7 +44,12 @@ public:
 	}
 
 	void push_back(const Triangle& tri) {
-		data.insert(tri);
+		data.push_back(tri);
+	}
+
+private:
+	bool repeat(const Triangle& Tri) {
+
 	}
 
 	//std::unordered_map<Vertex, Vertex> hash_map()

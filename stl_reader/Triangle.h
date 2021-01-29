@@ -11,6 +11,13 @@ private:
 	Vertex v2_;
 	Vertex v3_;
 
+	bool are_close (Vertex P1, Vertex P2) const {
+		if ((P1 - P2).magnitude() <= 1e-8) {
+			return true;
+		}
+	}
+
+
 public:
 	Triangle() :
 		normal_(),
@@ -58,12 +65,13 @@ public:
 		// normals should have angle greater than some
 		// threshold
 
-		bool degenerate_case{ false };
-		if (get_normal().dot(Other.normal_) <= 1e-8) {
-			degenerate_case = true;
+		bool close_normals{ false };
+		if (get_normal().cos_angle(Other.normal_) >= (1 - 1e-7)) {
+			close_normals = true;
 		}
-		return (v1_ == Other.v1_ && v2_ == Other.v2_
-			&& v3_ == Other.v3_ && degenerate_case);
+
+		return (are_close(v1_, Other.v1_) && are_close(v2_, Other.v2_)
+			&& are_close(v3_, Other.v3_) && close_normals);
 	}
 
 	bool operator!= (const Triangle& Other) const {
@@ -76,7 +84,7 @@ public:
 		Vertex nThis = normal_;
 		Vertex nOther = Other.normal_;
 
-		if (xHat.dot(nThis) > xHat.dot(nOther) && *this != Other) {
+		if (xHat.cos_angle(nThis) > xHat.cos_angle(nOther) && *this != Other) {
 			return true;
 		}
 		return false;
@@ -88,10 +96,5 @@ public:
 
 	std::vector<Vertex> get_points() const {
 		return std::vector<Vertex> {v1_, v2_, v3_};
-	}
-
-	bool operator== (const Triangle& Other) {
-		return (normal_ == Other.normal_ && v1_ == Other.v1_ &&
-			v2_ == Other.v2_ && v3_ == Other.v3_);
 	}
 };
